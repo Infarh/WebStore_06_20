@@ -1,17 +1,9 @@
 ﻿@model WebStore.Models.Employee
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>WebStore - Сотрудник:@Model.Surname @Model.Name @Model.Patronymic</title>
-</head>
-<body>
-
+<div class="container">
     <h3>Сотрудник</h3>
 
-    <dl>
+    <dl class="dl-horizontal">
         <dt>Id</dt>
         <dd>@Model.Id</dd>
 
@@ -29,7 +21,5 @@
     </dl>
 
     <hr />
-    <a href="~/Home/Employees">К списку</a>
-
-</body>
-</html>
+    <a asp-controller="Employees" asp-action="Index">К списку</a>
+</div>
