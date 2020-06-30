@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Models;
 using WebStore.ViewModels;
 
 namespace WebStore.Controllers
@@ -23,6 +25,8 @@ namespace WebStore.Controllers
 
             return View(employee);
         }
+
+        #region Edit
 
         public IActionResult Edit(int? id)
         {
@@ -48,7 +52,47 @@ namespace WebStore.Controllers
         [HttpPost]
         public IActionResult Edit(EmployeesViewModel Model)
         {
+            if (Model is null)
+                throw new ArgumentNullException(nameof(Model));
+
+            var employee = new Employee
+            {
+                Id = Model.Id,
+                Surname = Model.LastName,
+                Name = Model.FirstName,
+                Patronymic = Model.Patronymic,
+                Age = Model.Age,
+            };
+
+            if (Model.Id == 0)
+                _EmployeesData.Add(employee);
+            else
+                _EmployeesData.Edit(employee);
+
+            _EmployeesData.SaveChanges();
+
             return RedirectToAction(nameof(Index));
+        } 
+
+        #endregion
+
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0)
+                return BadRequest();
+
+            var employee = _EmployeesData.GetById(id);
+            if (employee is null)
+                return NotFound();
+
+            return View(new EmployeesViewModel
+            {
+                Id = employee.Id,
+                FirstName = employee.Name,
+                LastName = employee.Surname,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age
+            });
         }
     }
 }
