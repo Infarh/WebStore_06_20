@@ -27,7 +27,7 @@ namespace WebStore.Infrastructure.Services
             return employee.Id;
         }
 
-        public void Employee(Employee employee)
+        public void Edit(Employee employee)
         {
             if (employee is null)
                 throw new ArgumentNullException(nameof(employee));

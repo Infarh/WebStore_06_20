@@ -11,7 +11,7 @@ namespace WebStore.Infrastructure.Interfaces
 
         int Add(Employee employee);
 
-        void Employee(Employee employee);
+        void Edit(Employee employee);
 
         bool Delete(int id);
 
