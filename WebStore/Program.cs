@@ -11,6 +11,10 @@ namespace WebStore
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(host => host
                    .UseStartup<Startup>()
+                   //.UseUrls("http://localhost:5000")
+                   //.UseUrls("http://localhost:5001")
+                   //.UseHttpSys(opt => opt.MaxAccepts = 5)
+                   //.UseKestrel(opt => opt.ListenAnyIP(5001))
                 );
     }
 }
