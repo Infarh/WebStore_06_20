@@ -72,9 +72,11 @@ namespace WebStore.Controllers
             _EmployeesData.SaveChanges();
 
             return RedirectToAction(nameof(Index));
-        } 
+        }
 
         #endregion
+
+        #region Delete
 
         public IActionResult Delete(int id)
         {
@@ -94,5 +96,16 @@ namespace WebStore.Controllers
                 Age = employee.Age
             });
         }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _EmployeesData.Delete(id);
+            _EmployeesData.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        } 
+
+        #endregion
     }
 }
