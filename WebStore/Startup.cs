@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Middleware;
+using WebStore.Infrastructure.Services;
 
 namespace WebStore
 {
@@ -24,6 +26,8 @@ namespace WebStore
                 //opt.Filters.Add<Filter>();
                 //opt.Conventions.Add(); // ƒобавление/изменение соглашений MVC-приложени€
             }).AddRazorRuntimeCompilation();
+
+            services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
