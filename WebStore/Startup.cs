@@ -28,6 +28,7 @@ namespace WebStore
             }).AddRazorRuntimeCompilation();
 
             services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
+            services.AddScoped<IProductData, InMemoryProductData>();
 
             //services.AddTransient<TInterface, TService>();
             //services.AddScoped<TInterface, TService>();
