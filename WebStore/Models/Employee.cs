@@ -1,4 +1,6 @@
-﻿namespace WebStore.Models
+﻿using System;
+
+namespace WebStore.Models
 {
     public class Employee
     {
@@ -11,5 +13,7 @@
         public string Patronymic { get; set; }
 
         public int Age { get; set; }
+
+        public DateTime EmployementDate { get; set; }
     }
 }
