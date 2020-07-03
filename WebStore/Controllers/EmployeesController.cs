@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Models;
@@ -14,7 +15,15 @@ namespace WebStore.Controllers
         public EmployeesController(IEmployeesData EmployeesData) => _EmployeesData = EmployeesData;
 
         //[Route("All")]
-        public IActionResult Index() => View(_EmployeesData.Get());
+        public IActionResult Index() => View(_EmployeesData.Get().Select(employee => new EmployeesViewModel
+        {
+            Id = employee.Id,
+            FirstName = employee.Name,
+            LastName = employee.Surname,
+            Patronymic = employee.Patronymic,
+            Age = employee.Age,
+            EmployementDate = employee.EmployementDate
+        }));
 
         //[Route("User-{id}")]
         public IActionResult Details(int id)
@@ -23,7 +32,15 @@ namespace WebStore.Controllers
             if (employee is null)
                 return NotFound();
 
-            return View(employee);
+            return View(new EmployeesViewModel
+            {
+                Id = employee.Id,
+                FirstName = employee.Name,
+                LastName = employee.Surname,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age,
+                EmployementDate = employee.EmployementDate
+            });
         }
 
         #region Edit
@@ -45,7 +62,8 @@ namespace WebStore.Controllers
                 FirstName = employee.Name,
                 LastName = employee.Surname,
                 Patronymic = employee.Patronymic,
-                Age = employee.Age
+                Age = employee.Age,
+                EmployementDate = employee.EmployementDate
             });
         }
 
@@ -55,6 +73,15 @@ namespace WebStore.Controllers
             if (Model is null)
                 throw new ArgumentNullException(nameof(Model));
 
+            if(Model.Age < 18 || Model.Age > 75)
+                ModelState.AddModelError(nameof(Employee.Age), "Возраст должен быть всё же в пределах от 18 до 75");
+
+            if(Model.FirstName == "123" && Model.LastName == "QWE")
+                ModelState.AddModelError(string.Empty, "Странный выбор для имени и фамилии");
+
+            if (!ModelState.IsValid)
+                return View(Model);
+
             var employee = new Employee
             {
                 Id = Model.Id,
@@ -62,6 +89,7 @@ namespace WebStore.Controllers
                 Name = Model.FirstName,
                 Patronymic = Model.Patronymic,
                 Age = Model.Age,
+                EmployementDate = Model.EmployementDate
             };
 
             if (Model.Id == 0)
@@ -93,7 +121,8 @@ namespace WebStore.Controllers
                 FirstName = employee.Name,
                 LastName = employee.Surname,
                 Patronymic = employee.Patronymic,
-                Age = employee.Age
+                Age = employee.Age,
+                EmployementDate = employee.EmployementDate
             });
         }
 

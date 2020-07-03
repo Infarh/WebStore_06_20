@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WebStore.Models;
 
 namespace WebStore.Data
@@ -13,7 +14,8 @@ namespace WebStore.Data
                 Surname = "Иванов",
                 Name = "Иван",
                 Patronymic = "Иванович",
-                Age = 39
+                Age = 39,
+                EmployementDate = DateTime.Now.Subtract(TimeSpan.FromDays(300 * 7))
             },
             new Employee
             {
@@ -21,7 +23,8 @@ namespace WebStore.Data
                 Surname = "Петров",
                 Name = "Пётр",
                 Patronymic = "Петрович",
-                Age = 27
+                Age = 27,
+                EmployementDate = DateTime.Now.Subtract(TimeSpan.FromDays(512 * 3))
             },
             new Employee
             {
@@ -29,7 +32,8 @@ namespace WebStore.Data
                 Surname = "Сидоров",
                 Name = "Сидор",
                 Patronymic = "Сидорович",
-                Age = 18
+                Age = 18,
+                EmployementDate = DateTime.Now.Subtract(TimeSpan.FromDays(200 * 1))
             },
         };
     }

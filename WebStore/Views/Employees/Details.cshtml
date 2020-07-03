@@ -1,28 +1,31 @@
-﻿@model WebStore.Models.Employee
+﻿@model EmployeesViewModel
 
-<div class="container">
-    <h3>Сотрудник</h3>
+    <div class="container">
+        <h3>Сотрудник</h3>
 
-    <dl class="dl-horizontal">
-        <dt>Id</dt>
-        <dd>@Model.Id</dd>
+        <dl class="dl-horizontal">
+            <dt>Id</dt>
+            <dd>@Model.Id</dd>
 
-        <dt>Фамилия</dt>
-        <dd>@Model.Surname</dd>
+            <dt><label asp-for="LastName"></label></dt>
+            <dd>@Model.LastName</dd>
 
-        <dt>Имя</dt>
-        <dd>@Model.Name</dd>
+            <dt><label asp-for="FirstName"></label></dt>
+            <dd>@Model.FirstName</dd>
 
-        <dt>Отчество</dt>
-        <dd>@Model.Patronymic</dd>
+            <dt><label asp-for="Patronymic"></label></dt>
+            <dd>@Model.Patronymic</dd>
 
-        <dt>Возраст</dt>
-        <dd>@Model.Age</dd>
-    </dl>
+            <dt><label asp-for="Age"></label></dt>
+            <dd>@Model.Age</dd>
 
-    <hr />
-    <div>
-        <a asp-controller="Employees" asp-action="Index" class="btn btn-primary">К списку</a>
-        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Удалить!</a>
+            <dt><label asp-for="EmployementDate"></label></dt>
+            <dd>@Model.EmployementDate</dd>
+        </dl>
+
+        <hr />
+        <div>
+            <a asp-controller="Employees" asp-action="Index" class="btn btn-primary">К списку</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Удалить!</a>
+        </div>
     </div>
-</div>
