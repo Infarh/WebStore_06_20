@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.DAL.Context;
+using WebStore.Data;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Services;
 
@@ -25,6 +26,7 @@ namespace WebStore
         {
             services.AddDbContext<WebStoreDB>(opt => 
                 opt.UseSqlServer(_Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<WebStoreDBInitializer>();
 
             services.AddControllersWithViews(opt =>
             {
@@ -40,21 +42,9 @@ namespace WebStore
             //services.AddSingleton<TInterface, TService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
         {
-            //var employees1 = services.GetRequiredService<IEmployeesData>();
-            //var employees2 = services.GetRequiredService<IEmployeesData>();
-
-            //var hash1 = employees1.GetHashCode();
-            //var hash2 = employees2.GetHashCode();
-
-            //using (var scope = services.CreateScope())
-            //{
-            //    var employees3 = scope.ServiceProvider.GetRequiredService<IEmployeesData>();
-            //    var employees4 = scope.ServiceProvider.GetRequiredService<IEmployeesData>();
-            //    var hash3 = employees3.GetHashCode();
-            //    var hash4 = employees3.GetHashCode();
-            //}
+           db.Initialize();
 
             if (env.IsDevelopment())
             {
