@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Infrastructure.Mapping;
 using WebStore.Models;
 using WebStore.ViewModels;
 
@@ -15,15 +16,7 @@ namespace WebStore.Controllers
         public EmployeesController(IEmployeesData EmployeesData) => _EmployeesData = EmployeesData;
 
         //[Route("All")]
-        public IActionResult Index() => View(_EmployeesData.Get().Select(employee => new EmployeesViewModel
-        {
-            Id = employee.Id,
-            FirstName = employee.Name,
-            LastName = employee.Surname,
-            Patronymic = employee.Patronymic,
-            Age = employee.Age,
-            EmployementDate = employee.EmployementDate
-        }));
+        public IActionResult Index() => View(_EmployeesData.Get().ToView());
 
         //[Route("User-{id}")]
         public IActionResult Details(int id)
@@ -32,15 +25,7 @@ namespace WebStore.Controllers
             if (employee is null)
                 return NotFound();
 
-            return View(new EmployeesViewModel
-            {
-                Id = employee.Id,
-                FirstName = employee.Name,
-                LastName = employee.Surname,
-                Patronymic = employee.Patronymic,
-                Age = employee.Age,
-                EmployementDate = employee.EmployementDate
-            });
+            return View(employee.ToView());
         }
 
         #region Edit
@@ -56,15 +41,7 @@ namespace WebStore.Controllers
             if (employee is null)
                 return NotFound();
 
-            return View(new EmployeesViewModel
-            {
-                Id = employee.Id,
-                FirstName = employee.Name,
-                LastName = employee.Surname,
-                Patronymic = employee.Patronymic,
-                Age = employee.Age,
-                EmployementDate = employee.EmployementDate
-            });
+            return View(employee.ToView());
         }
 
         [HttpPost]
@@ -82,20 +59,10 @@ namespace WebStore.Controllers
             if (!ModelState.IsValid)
                 return View(Model);
 
-            var employee = new Employee
-            {
-                Id = Model.Id,
-                Surname = Model.LastName,
-                Name = Model.FirstName,
-                Patronymic = Model.Patronymic,
-                Age = Model.Age,
-                EmployementDate = Model.EmployementDate
-            };
-
             if (Model.Id == 0)
-                _EmployeesData.Add(employee);
+                _EmployeesData.Add(Model.FromView());
             else
-                _EmployeesData.Edit(employee);
+                _EmployeesData.Edit(Model.FromView());
 
             _EmployeesData.SaveChanges();
 
@@ -115,15 +82,7 @@ namespace WebStore.Controllers
             if (employee is null)
                 return NotFound();
 
-            return View(new EmployeesViewModel
-            {
-                Id = employee.Id,
-                FirstName = employee.Name,
-                LastName = employee.Surname,
-                Patronymic = employee.Patronymic,
-                Age = employee.Age,
-                EmployementDate = employee.EmployementDate
-            });
+            return View(employee.ToView());
         }
 
         [HttpPost]

@@ -2,11 +2,16 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.DAL.Context;
+using WebStore.Data;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Services;
+using WebStore.Infrastructure.Services.InMemory;
+using WebStore.Infrastructure.Services.InSQL;
 
 namespace WebStore
 {
@@ -21,6 +26,10 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebStoreDB>(opt => 
+                opt.UseSqlServer(_Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<WebStoreDBInitializer>();
+
             services.AddControllersWithViews(opt =>
             {
                 //opt.Filters.Add<Filter>();
@@ -28,28 +37,17 @@ namespace WebStore
             }).AddRazorRuntimeCompilation();
 
             services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
-            services.AddScoped<IProductData, InMemoryProductData>();
+            //services.AddScoped<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
 
             //services.AddTransient<TInterface, TService>();
             //services.AddScoped<TInterface, TService>();
             //services.AddSingleton<TInterface, TService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
         {
-            //var employees1 = services.GetRequiredService<IEmployeesData>();
-            //var employees2 = services.GetRequiredService<IEmployeesData>();
-
-            //var hash1 = employees1.GetHashCode();
-            //var hash2 = employees2.GetHashCode();
-
-            //using (var scope = services.CreateScope())
-            //{
-            //    var employees3 = scope.ServiceProvider.GetRequiredService<IEmployeesData>();
-            //    var employees4 = scope.ServiceProvider.GetRequiredService<IEmployeesData>();
-            //    var hash3 = employees3.GetHashCode();
-            //    var hash4 = employees3.GetHashCode();
-            //}
+           db.Initialize();
 
             if (env.IsDevelopment())
             {
