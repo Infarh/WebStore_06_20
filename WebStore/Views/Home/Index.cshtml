@@ -1,17 +1,11 @@
 ﻿@using WebStore.Infrastructure.Interfaces
+@using WebStore.Infrastructure.Mapping
 @inject IProductData ProductData
 @{
     var products = ProductData
         .GetProducts()
         .Take(6)
-        .Select(p => new ProductViewModel
-        {
-            Id = p.Id,
-            Name = p.Name,
-            Order = p.Order,
-            Price = p.Price,
-            ImageUrl = p.ImageUrl
-        })
+        .ToView()
         .OrderBy(p => p.Order);
 }
 
