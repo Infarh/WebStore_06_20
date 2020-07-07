@@ -1,6 +1,5 @@
-﻿using System;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using WebStore.DAL.Context;
 
 namespace WebStore.Data
@@ -21,7 +20,7 @@ namespace WebStore.Data
 
             db.Migrate();
 
-            if(_db.Products.Any()) return;
+            if (_db.Products.Any()) return;
 
             using (db.BeginTransaction())
             {
@@ -55,6 +54,65 @@ namespace WebStore.Data
 
                 db.CommitTransaction();
             }
+
+            //var products = TestData.Products;
+            //var sections = TestData.Sections;
+            //var brands = TestData.Brands;
+
+            //var product_section = products.Join(
+            //    sections, 
+            //    p => p.SectionId, 
+            //    s => s.Id, 
+            //    (product, section) => (product, section));
+
+            //foreach (var (product, section) in product_section)
+            //{
+            //    product.Section = section;
+            //    product.SectionId = 0;
+            //}
+
+            //var product_brand = products.Join(
+            //    brands,
+            //    p => p.BrandId,
+            //    b => b.Id,
+            //    (product, brand) => (product, brand));
+
+            //foreach (var (product, brand) in product_brand)
+            //{
+            //    product.Brand = brand;
+            //    product.BrandId = null;
+            //}
+
+            //foreach (var product in products)
+            //    product.Id = 0;
+
+            //var child_sections = sections.Join(
+            //    sections,
+            //    child => child.ParentId,
+            //    parent => parent.Id,
+            //    (child, parent) => (child, parent));
+
+            //foreach (var (child, parent) in child_sections)
+            //{
+            //    child.ParentSection = parent;
+            //    child.ParentId = null;
+            //}
+
+            //foreach (var section in sections)
+            //    section.Id = 0;
+
+            //foreach (var brand in brands)
+            //    brand.Id = 0;
+
+
+            //using (db.BeginTransaction())
+            //{
+            //    _db.Sections.AddRange(sections);
+            //    _db.Brands.AddRange(brands);
+            //    _db.Products.AddRange(products);
+            //    _db.SaveChanges();
+            //    db.CommitTransaction();
+            //}
         }
     }
 }
