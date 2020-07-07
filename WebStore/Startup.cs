@@ -11,6 +11,7 @@ using WebStore.Data;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Services;
 using WebStore.Infrastructure.Services.InMemory;
+using WebStore.Infrastructure.Services.InSQL;
 
 namespace WebStore
 {
@@ -36,7 +37,8 @@ namespace WebStore
             }).AddRazorRuntimeCompilation();
 
             services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
-            services.AddScoped<IProductData, InMemoryProductData>();
+            //services.AddScoped<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
 
             //services.AddTransient<TInterface, TService>();
             //services.AddScoped<TInterface, TService>();
