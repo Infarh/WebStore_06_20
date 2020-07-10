@@ -36,7 +36,8 @@ namespace WebStore
                 //opt.Conventions.Add(); // ƒобавление/изменение соглашений MVC-приложени€
             }).AddRazorRuntimeCompilation();
 
-            services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
+            //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
+            services.AddScoped<IEmployeesData, SqlEmployeesData>();
             //services.AddScoped<IProductData, InMemoryProductData>();
             services.AddScoped<IProductData, SqlProductData>();
 
