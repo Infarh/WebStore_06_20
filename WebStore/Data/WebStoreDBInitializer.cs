@@ -20,8 +20,15 @@ namespace WebStore.Data
 
             db.Migrate();
 
+            InitializeProducts();
+            InitializeEmployees();
+        }
+
+        private void InitializeProducts()
+        {
             if (_db.Products.Any()) return;
 
+            var db = _db.Database;
             using (db.BeginTransaction())
             {
                 _db.Sections.AddRange(TestData.Sections);
@@ -113,6 +120,22 @@ namespace WebStore.Data
             //    _db.SaveChanges();
             //    db.CommitTransaction();
             //}
+        }
+
+        private void InitializeEmployees()
+        {
+            if(_db.Employees.Any()) return;
+
+            using (_db.Database.BeginTransaction())
+            {
+                TestData.Employees.ForEach(employee => employee.Id = 0);
+
+                _db.Employees.AddRange(TestData.Employees);
+
+                _db.SaveChanges();
+
+                _db.Database.CommitTransaction();
+            }
         }
     }
 }
