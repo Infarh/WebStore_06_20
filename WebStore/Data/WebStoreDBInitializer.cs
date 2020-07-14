@@ -1,14 +1,25 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
+using WebStore.Domain.Entities.Identity;
 
 namespace WebStore.Data
 {
     public class WebStoreDBInitializer
     {
         private readonly WebStoreDB _db;
+        private readonly UserManager<User> _UserManager;
+        private readonly RoleManager<Role> _RoleManager;
 
-        public WebStoreDBInitializer(WebStoreDB db) => _db = db;
+        public WebStoreDBInitializer(WebStoreDB db, UserManager<User> UserManager, RoleManager<Role> RoleManager)
+        {
+            _db = db;
+            _UserManager = UserManager;
+            _RoleManager = RoleManager;
+        }
 
         public void Initialize()
         {
@@ -22,6 +33,7 @@ namespace WebStore.Data
 
             InitializeProducts();
             InitializeEmployees();
+            InitializeIdentityAsync().Wait();
         }
 
         private void InitializeProducts()
@@ -124,7 +136,7 @@ namespace WebStore.Data
 
         private void InitializeEmployees()
         {
-            if(_db.Employees.Any()) return;
+            if (_db.Employees.Any()) return;
 
             using (_db.Database.BeginTransaction())
             {
@@ -135,6 +147,31 @@ namespace WebStore.Data
                 _db.SaveChanges();
 
                 _db.Database.CommitTransaction();
+            }
+        }
+
+        private async Task InitializeIdentityAsync()
+        {
+            async Task CheckRoleExist(string RoleName)
+            {
+                if (!await _RoleManager.RoleExistsAsync(RoleName))
+                    await _RoleManager.CreateAsync(new Role { Name = RoleName });
+            }
+
+            await CheckRoleExist(Role.Administrator);
+            await CheckRoleExist(Role.User);
+
+            if (await _UserManager.FindByNameAsync(User.Administrator) is null)
+            {
+                var admin = new User { UserName = User.Administrator };
+                var creation_result = await _UserManager.CreateAsync(admin, User.DefaultAdminPassword);
+                if (creation_result.Succeeded)
+                    await _UserManager.AddToRoleAsync(admin, Role.Administrator);
+                else
+                {
+                    var errors = creation_result.Errors.Select(e => e.Description);
+                    throw new InvalidOperationException($"Ошибка при создании пользователя Администратор: {string.Join(", ", errors)}");
+                }
             }
         }
     }

@@ -19,10 +19,7 @@ namespace WebStore
     {
         private readonly IConfiguration _Configuration;
 
-        public Startup(IConfiguration Configuration)
-        {
-            _Configuration = Configuration;
-        }
+        public Startup(IConfiguration Configuration) => _Configuration = Configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
