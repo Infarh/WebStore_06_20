@@ -24,13 +24,23 @@ namespace WebStore.Infrastructure.Services.InSQL
                .Include(product => product.Brand)
                .Include(product => product.Section);
 
-            if (Filter?.BrandId != null)
-                query = query.Where(product => product.BrandId == Filter.BrandId);
+            if (Filter?.Ids?.Length > 0)
+                query = query.Where(product => Filter.Ids.Contains(product.Id));
+            else
+            {
+                if (Filter?.BrandId != null)
+                    query = query.Where(product => product.BrandId == Filter.BrandId);
 
-            if (Filter?.SectionId != null)
-                query = query.Where(product => product.SectionId == Filter.SectionId);
+                if (Filter?.SectionId != null)
+                    query = query.Where(product => product.SectionId == Filter.SectionId);
+            }
 
             return query/*.ToArray()*/;
         }
+
+        public Product GetProductById(int id) => _db.Products
+           .Include(product => product.Brand)
+           .Include(product => product.Section)
+           .FirstOrDefault(product => product.Id == id);
     }
 }
