@@ -23,8 +23,5 @@ namespace WebStore.Controllers
         public IActionResult ProductDetails() => View();
 
         public IActionResult Error404() => View();
-
-        [ActionName("Content")]
-        public IActionResult GetContent(string Id) => Content($"Content-123: {Id}");
     }
 }
