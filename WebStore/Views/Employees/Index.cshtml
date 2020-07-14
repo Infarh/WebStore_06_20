@@ -1,4 +1,5 @@
-﻿@model IEnumerable<EmployeesViewModel>
+﻿@using WebStore.Domain.Entities.Identity
+@model IEnumerable<EmployeesViewModel>
 
 <div class="container">
     <h3>Сотрудники</h3>
@@ -16,8 +17,11 @@
                 <th>Отчество</th>
                 <th>Возраст</th>
                 <th>Начало работы</th>
-                <th></th>
-                <th></th>
+                @if (User.IsInRole(Role.Administrator))
+                {
+                    <th></th>
+                    <th></th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -36,17 +40,20 @@
                     <td>@employee.Patronymic</td>
                     <td>@employee.Age</td>
                     <td>@employee.EmployementDate</td>
-                    <td>
-                        <a asp-controller="Employees" asp-action="Edit" asp-route-id="@employee.Id"
-                           class="btn btn-sm btn-default">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <form asp-action="DeleteConfirmed" asp-route-id="@employee.Id">
-                            <input type="submit" value="del" class="btn-danger"/>
-                        </form>
-                    </td>
+                    @if (User.IsInRole(Role.Administrator))
+                    {
+                        <td>
+                            <a asp-controller="Employees" asp-action="Edit" asp-route-id="@employee.Id"
+                               class="btn btn-sm btn-default">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <form asp-action="DeleteConfirmed" asp-route-id="@employee.Id">
+                                <input type="submit" value="del" class="btn-danger"/>
+                            </form>
+                        </td>
+                    }
                 </tr>
             }
         </tbody>

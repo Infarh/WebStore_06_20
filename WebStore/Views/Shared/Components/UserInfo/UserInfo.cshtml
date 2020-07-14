@@ -1,5 +1,10 @@
-﻿<div class="shop-menu pull-right">
+﻿@using WebStore.Domain.Entities.Identity
+<div class="shop-menu pull-right">
     <ul class="nav navbar-nav">
+        @if (User.IsInRole(Role.Administrator))
+        {
+            <li><a href="#"><i class="fa fa-key"></i> Админка</a></li>
+        }
         <li><a href="#"><i class="fa fa-user"></i> @User.Identity.Name</a></li>
         <li><a asp-controller="Home" asp-action="Checkout"><i class="fa fa-crosshairs"></i> Заказ</a></li>
         <li><a asp-controller="Home" asp-action="Cart"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
