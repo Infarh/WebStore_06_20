@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using WebStore.Domain.Entities.Identity;
 using WebStore.ViewModels.Identity;
 
@@ -10,11 +11,13 @@ namespace WebStore.Controllers
     {
         private readonly UserManager<User> _UserManager;
         private readonly SignInManager<User> _SignInManager;
+        private readonly IStringLocalizer<AccountController> _Localizer;
 
-        public AccountController(UserManager<User> UserManager, SignInManager<User> SignInManager)
+        public AccountController(UserManager<User> UserManager, SignInManager<User> SignInManager, IStringLocalizer<AccountController> Localizer)
         {
             _UserManager = UserManager;
             _SignInManager = SignInManager;
+            _Localizer = Localizer;
         }
 
         #region Процесс регистрации нового пользвоателя
@@ -70,7 +73,7 @@ namespace WebStore.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            ModelState.AddModelError(string.Empty, "Неверное имя пользователя или пароль!");
+            ModelState.AddModelError(string.Empty, _Localizer["Неверное имя пользователя или пароль!"]);
 
             return View(Model);
         } 

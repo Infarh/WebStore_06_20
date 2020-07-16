@@ -1,4 +1,5 @@
 ﻿@model ProductViewModel
+@inject IViewLocalizer Loc
 @{
     ViewData["Title"] = "Details";
 }
@@ -63,12 +64,12 @@
                                 <input type="text" value="3" />
                                 <button type="button" class="btn btn-default cart">
                                     <i class="fa fa-shopping-cart"></i>
-                                    В корзину
+                                    @Loc["В корзину"]
                                 </button>
                             </span>
-                            <p><b>Доступность:</b> In Stock</p>
-                            <p><b>Состояние:</b> новое</p>
-                            <p><b>Бренд:</b> @Model.</p>
+                            <p><b>@Loc["Доступность:"]</b> @Loc["In Stock"]</p>
+                            <p><b>@Loc["Состояние:"]</b> @Loc["новое"]</p>
+                            <p><b>@Loc["Бренд:"]</b> @Model.</p>
                             <a href=""><img src="~/images/product-details/share.png" class="share img-responsive" alt="" /></a>
                         </div><!--/product-information-->
                     </div>

@@ -1,8 +1,9 @@
-﻿@{
+﻿@inject IViewLocalizer Loc
+@{
     ViewData["Title"] = "AccessDenied";
 }
 
 <div class="container">
-    <p class="text-danger">В доступе отказано!</p>
-    <a asp-controller="Home" asp-action="Index">На главную страницу!</a>
+    <p class="text-danger">@Loc["В доступе отказано!"]</p>
+    <a asp-controller="Home" asp-action="Index">@Loc["На главную страницу!"]</a>
 </div>

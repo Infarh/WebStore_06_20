@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<SectionViewModel>
+@inject IViewLocalizer Loc
 
-<h2>Категории</h2>
+<h2>@Loc["Категории"]</h2>
 <div class="panel-group category-products" id="accordian">
     <!--category-products-->
     @foreach (var parent_section in Model)

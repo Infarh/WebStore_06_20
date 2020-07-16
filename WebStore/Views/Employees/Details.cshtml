@@ -1,4 +1,5 @@
 ﻿@using WebStore.Domain.Entities.Identity
+@inject IViewLocalizer Loc
 @model EmployeesViewModel
 
     <div class="container">
@@ -29,8 +30,8 @@
             <a asp-controller="Employees" asp-action="Index" class="btn btn-info">К списку</a>
             @if (User.IsInRole(Role.Administrator))
             {
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Редактировать</a>
-                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Удалить!</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">@Loc["Редактировать"]</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">@Loc["Удалить!"]</a>
             }
         </div>
     </div>

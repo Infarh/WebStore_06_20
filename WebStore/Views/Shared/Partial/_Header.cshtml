@@ -1,4 +1,6 @@
-﻿<header id="header">
+﻿@inject IViewLocalizer Loc
+
+<header id="header">
     <!--header-->
     <div class="header_top">
         <!--header_top-->
@@ -62,7 +64,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Поиск" />
+                        <input type="text" placeholder="@Loc["Поиск"]" />
                     </div>
                 </div>
             </div>

@@ -1,4 +1,6 @@
-﻿<footer id="footer">
+﻿@inject IViewLocalizer Loc
+
+<footer id="footer">
     <!--Footer-->
     <div class="footer-top">
         <div class="container">
@@ -87,11 +89,10 @@
                     <div class="single-widget">
                         <h2>Service</h2>
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Online Help</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Order Status</a></li>
-                            <li><a href="#">Change Location</a></li>
-                            <li><a href="#">FAQ’s</a></li>
+                            <li><a href="#">@Loc["Помощь"]</a></li>
+                            <li><a href="#">@Loc["Контакты"]</a></li>
+                            <li><a href="#">@Loc["Статус заказа"]</a></li>
+                            <li><a href="#">@Loc["ЧаВо"]</a></li>
                         </ul>
                     </div>
                 </div>
@@ -99,11 +100,11 @@
                     <div class="single-widget">
                         <h2>Quock Shop</h2>
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">T-Shirt</a></li>
-                            <li><a href="#">Mens</a></li>
-                            <li><a href="#">Womens</a></li>
-                            <li><a href="#">Gift Cards</a></li>
-                            <li><a href="#">Shoes</a></li>
+                            <li><a href="#">@Loc["Футболки"]</a></li>
+                            <li><a href="#">@Loc["Мужская одежда"]</a></li>
+                            <li><a href="#">@Loc["Женская одежда"]</a></li>
+                            <li><a href="#">@Loc["Подарточные катры"]</a></li>
+                            <li><a href="#">@Loc["Обувь"]</a></li>
                         </ul>
                     </div>
                 </div>

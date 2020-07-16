@@ -1,8 +1,10 @@
 using System;
+using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -64,6 +66,7 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
+            services.AddLocalization(opt => opt.ResourcesPath = "Resources");
             services.AddControllersWithViews(opt =>
             {
                 //opt.Filters.Add<Filter>();
@@ -90,6 +93,19 @@ namespace WebStore
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
+
+            CultureInfo default_culture;
+            var locales = new[]
+            {
+                new CultureInfo("en"),
+                default_culture = new CultureInfo("ru"), 
+            };
+            app.UseRequestLocalization(opt =>
+            {
+                opt.DefaultRequestCulture = new RequestCulture(default_culture);
+                opt.SupportedCultures = locales;
+                opt.SupportedUICultures = locales;
+            });
 
             app.UseStaticFiles();
             app.UseDefaultFiles();

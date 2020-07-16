@@ -1,21 +1,23 @@
-﻿<ul class="nav navbar-nav collapse navbar-collapse">
-    <li><a asp-controller="Home" asp-action="Index" class="active">Главная</a></li>
+﻿@inject IViewLocalizer Loc
+
+<ul class="nav navbar-nav collapse navbar-collapse">
+    <li><a asp-controller="Home" asp-action="Index" class="active">@Loc["Главная"]</a></li>
     <li class="dropdown">
-        <a asp-controller="Catalog" asp-action="Shop">Магазин<i class="fa fa-angle-down"></i></a>
+        <a asp-controller="Catalog" asp-action="Shop">@Loc["Магазин"]<i class="fa fa-angle-down"></i></a>
         <ul role="menu" class="sub-menu">
-            <li><a asp-controller="Catalog" asp-action="Shop">Каталог товаров</a></li>
-            <li><a asp-controller="Home" asp-action="Checkout">Оформление заказа</a></li>
-            <li><a asp-controller="Cart" asp-action="Details">Корзина</a></li>
+            <li><a asp-controller="Catalog" asp-action="Shop">@Loc["Каталог товаров"]</a></li>
+            <li><a asp-controller="Home" asp-action="Checkout">@Loc["Оформление заказа"]</a></li>
+            <li><a asp-controller="Cart" asp-action="Details">@Loc["Корзина"]</a></li>
         </ul>
     </li>
     <li class="dropdown">
         <a asp-controller="Home" asp-action="Blogs">Блоги<i class="fa fa-angle-down"></i></a>
         <ul role="menu" class="sub-menu">
-            <li><a asp-controller="Home" asp-action="Blogs">Список блогов</a></li>
-            <li><a asp-controller="Home" asp-action="BlogSingle">Блог магазина</a></li>
+            <li><a asp-controller="Home" asp-action="Blogs">@Loc["Список блогов"]</a></li>
+            <li><a asp-controller="Home" asp-action="BlogSingle">@Loc["Блог магазина"]</a></li>
         </ul>
     </li>
-    <li><a asp-controller="Home" asp-action="Error404">Ошибка 404</a></li>
-    <li><a asp-controller="Home" asp-action="ContactUs">Контакты</a></li>
-    <li><a asp-controller="Employees" asp-action="Index">Сотрудники</a></li>
+    <li><a asp-controller="Home" asp-action="Error404">@Loc["Ошибка 404"]</a></li>
+    <li><a asp-controller="Home" asp-action="ContactUs">@Loc["Контакты"]</a></li>
+    <li><a asp-controller="Employees" asp-action="Index">@Loc["Сотрудники"]</a></li>
 </ul>

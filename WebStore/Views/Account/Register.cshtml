@@ -1,7 +1,8 @@
 ﻿@model WebStore.ViewModels.Identity.RegisterUserViewModel
+@inject IViewLocalizer Loc
 
 @{
-    ViewData["Title"] = "Регистрация нового пользователя";
+    ViewData["Title"] = Loc["Регистрация нового пользователя"];
 }
 
 <section id="form">
@@ -11,20 +12,20 @@
             <div class="col-sm-4">
                 <div class="signup-form">
                     <!--sign up form-->
-                    <h2>Регистрация</h2>
+                    <h2>@Loc["Регистрация"]</h2>
                     <form asp-action="Register" asp-antiforgery="true">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                        <input asp-for="UserName" placeholder="Имя пользователя"/>
+                        <input asp-for="UserName" placeholder="@Loc["Имя пользователя"]"/>
                         <span asp-validation-for="UserName" class="text-danger"></span>
                         
-                        <input asp-for="Password" placeholder="Пароль"/>
+                        <input asp-for="Password" placeholder="@Loc["Пароль"]"/>
                         <span asp-validation-for="Password" class="text-danger"></span>
 
-                        <input asp-for="PasswordConfirm" placeholder="Подтверждение пароля"/>
+                        <input asp-for="PasswordConfirm" placeholder="@Loc["Подтверждение пароля"]"/>
                         <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
 
-                        <button type="submit" class="btn btn-default">Зарегистрироваться</button>
+                        <button type="submit" class="btn btn-default">@Loc["Зарегистрироваться"]</button>
                     </form>
                 </div><!--/sign up form-->
             </div>
