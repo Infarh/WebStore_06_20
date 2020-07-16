@@ -1,0 +1,29 @@
+﻿@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+
+@inject IViewLocalizer Loc
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    var request_culture = Context.Features.Get<IRequestCultureFeature>();
+    var culture_items = LocOptions.Value.SupportedCultures
+        .Select(culture => new SelectListItem { Value = culture.Name, Text = culture.Name })
+        .ToList();
+
+    var return_url = string.IsNullOrEmpty(Context.Request.Path)
+        ? "~/"
+        : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
+}
+
+<div title="@Loc["Провайдер локализации"] @request_culture?.Provider?.GetType().Name">
+    <form id="selectLanguage" method="post" class="form-horizontal navbar-link" role="form"
+          asp-controller="Culture"
+          asp-action="SetCulture"
+          asp-route-ReturnUrl="@return_url">
+        <select name="culture"
+                onchange="this.form.submit();"
+                asp-for="@request_culture.RequestCulture.UICulture.Name"
+                asp-items="culture_items">
+        </select>
+    </form>
+</div>

@@ -1,14 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.Domain.Entities.Identity;
@@ -71,7 +74,11 @@ namespace WebStore
             {
                 //opt.Filters.Add<Filter>();
                 //opt.Conventions.Add(); // ƒобавление/изменение соглашений MVC-приложени€
-            }).AddRazorRuntimeCompilation();
+            })
+               .AddRazorRuntimeCompilation()
+               .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+               .AddDataAnnotationsLocalization()
+               .AddMvcLocalization();
 
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
             services.AddScoped<IEmployeesData, SqlEmployeesData>();
@@ -82,6 +89,18 @@ namespace WebStore
             //services.AddTransient<TInterface, TService>();
             //services.AddScoped<TInterface, TService>();
             //services.AddSingleton<TInterface, TService>();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var cultures = new [] 
+                {
+                    new CultureInfo("ru"),
+                    new CultureInfo("en")
+                };
+                options.DefaultRequestCulture = new RequestCulture(cultures[0]);
+                options.SupportedCultures = cultures;
+                options.SupportedUICultures = cultures;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
@@ -94,18 +113,21 @@ namespace WebStore
                 app.UseBrowserLink();
             }
 
-            CultureInfo default_culture;
-            var locales = new[]
-            {
-                new CultureInfo("en"),
-                default_culture = new CultureInfo("ru"), 
-            };
-            app.UseRequestLocalization(opt =>
-            {
-                opt.DefaultRequestCulture = new RequestCulture(default_culture);
-                opt.SupportedCultures = locales;
-                opt.SupportedUICultures = locales;
-            });
+            //CultureInfo default_culture;
+            //var locales = new[]
+            //{
+            //    new CultureInfo("en"),
+            //    default_culture = new CultureInfo("ru"), 
+            //};
+
+            //app.UseRequestLocalization(opt =>
+            //{
+            //    opt.DefaultRequestCulture = new RequestCulture(default_culture);
+            //    opt.SupportedCultures = locales;
+            //    opt.SupportedUICultures = locales;
+            //});
+
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
             app.UseStaticFiles();
             app.UseDefaultFiles();
