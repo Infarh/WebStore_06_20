@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -14,19 +15,19 @@
   <data name="In Stock" xml:space="preserve">
     <value>In Stock</value>
   </data>
-  <data name="Áðåíä:" xml:space="preserve">
+  <data name="Ð‘Ñ€ÐµÐ½Ð´:" xml:space="preserve">
     <value>Brand:</value>
   </data>
-  <data name="Â êîðçèíó" xml:space="preserve">
+  <data name="Ð’ ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñƒ" xml:space="preserve">
     <value>To cart</value>
   </data>
-  <data name="Äîñòóïíîñòü:" xml:space="preserve">
+  <data name="Ð”Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾ÑÑ‚ÑŒ:" xml:space="preserve">
     <value>Availability</value>
   </data>
-  <data name="íîâîå" xml:space="preserve">
+  <data name="Ð½Ð¾Ð²Ð¾Ðµ" xml:space="preserve">
     <value>new</value>
   </data>
-  <data name="Ñîñòîÿíèå:" xml:space="preserve">
+  <data name="Ð¡Ð¾ÑÑ‚Ð¾ÑÐ½Ð¸Ðµ:" xml:space="preserve">
     <value>State:</value>
   </data>
 </root>

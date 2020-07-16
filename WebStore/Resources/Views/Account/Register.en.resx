@@ -11,22 +11,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Çàðåãèñòðèðîâàòüñÿ" xml:space="preserve">
+  <data name="Ð—Ð°Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒÑÑ" xml:space="preserve">
     <value>Register</value>
   </data>
-  <data name="Èìÿ ïîëüçîâàòåëÿ" xml:space="preserve">
+  <data name="Ð˜Ð¼Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ" xml:space="preserve">
     <value>User name</value>
   </data>
-  <data name="Ïàðîëü" xml:space="preserve">
+  <data name="ÐŸÐ°Ñ€Ð¾Ð»ÑŒ" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="Ïîäòâåðæäåíèå ïàðîëÿ" xml:space="preserve">
+  <data name="ÐŸÐ¾Ð´Ñ‚Ð²ÐµÑ€Ð¶Ð´ÐµÐ½Ð¸Ðµ Ð¿Ð°Ñ€Ð¾Ð»Ñ" xml:space="preserve">
     <value>Confirm password</value>
   </data>
-  <data name="Ðåãèñòðàöèÿ" xml:space="preserve">
+  <data name="Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ" xml:space="preserve">
     <value>Register</value>
   </data>
-  <data name="Ðåãèñòðàöèÿ íîâîãî ïîëüçîâàòåëÿ" xml:space="preserve">
+  <data name="Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ Ð½Ð¾Ð²Ð¾Ð³Ð¾ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ" xml:space="preserve">
     <value>Register new user</value>
   </data>
 </root>

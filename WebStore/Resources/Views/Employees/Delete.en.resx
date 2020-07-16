@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -11,16 +12,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Íàçàä ê ñïèñêó" xml:space="preserve">
+  <data name="ÐÐ°Ð·Ð°Ð´ Ðº ÑÐ¿Ð¸ÑÐºÑƒ" xml:space="preserve">
     <value>Back too list</value>
   </data>
-  <data name="Óäàëåíèå ñîòðóäíèêà" xml:space="preserve">
+  <data name="Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ°" xml:space="preserve">
     <value>Remove employee</value>
   </data>
-  <data name="Óäàëèòü" xml:space="preserve">
+  <data name="Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="Âû óâåðåíû ÷òî õîòèòå óäàëèòü ýòîãî íåãîäÿÿ?" xml:space="preserve">
+  <data name="Ð’Ñ‹ ÑƒÐ²ÐµÑ€ÐµÐ½Ñ‹ Ñ‡Ñ‚Ð¾ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ ÑƒÐ´Ð°Ð»Ð¸Ñ‚ÑŒ ÑÑ‚Ð¾Ð³Ð¾ Ð½ÐµÐ³Ð¾Ð´ÑÑ?" xml:space="preserve">
     <value>Are you sure to delete this employee?</value>
   </data>
 </root>

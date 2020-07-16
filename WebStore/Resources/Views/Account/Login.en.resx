@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -11,16 +12,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Âîéòè" xml:space="preserve">
+  <data name="Ð’Ð¾Ð¹Ñ‚Ð¸" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="Âõîä â ñèñòåìó" xml:space="preserve">
+  <data name="Ð’Ñ…Ð¾Ð´ Ð² ÑÐ¸ÑÑ‚ÐµÐ¼Ñƒ" xml:space="preserve">
     <value>Sign in</value>
   </data>
-  <data name="Èìÿ ïîëüçîâàòåëÿ" xml:space="preserve">
+  <data name="Ð˜Ð¼Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ" xml:space="preserve">
     <value>User name</value>
   </data>
-  <data name="Ïàðîëü" xml:space="preserve">
+  <data name="ÐŸÐ°Ñ€Ð¾Ð»ÑŒ" xml:space="preserve">
     <value>Password</value>
   </data>
 </root>

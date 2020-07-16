@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -11,19 +12,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Â âûäà÷å òîâàðû îòñóòñòâóþò" xml:space="preserve">
+  <data name="Ð’ Ð²Ñ‹Ð´Ð°Ñ‡Ðµ Ñ‚Ð¾Ð²Ð°Ñ€Ñ‹ Ð¾Ñ‚ÑÑƒÑ‚ÑÑ‚Ð²ÑƒÑŽÑ‚" xml:space="preserve">
     <value>No products found</value>
   </data>
-  <data name="Äîáàâèòü â êîðçèíó" xml:space="preserve">
+  <data name="Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð² ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñƒ" xml:space="preserve">
     <value>Add to cart</value>
   </data>
-  <data name="Äîáàâèòü â ñïèñîê æåëàíèé" xml:space="preserve">
+  <data name="Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð² ÑÐ¿Ð¸ÑÐ¾Ðº Ð¶ÐµÐ»Ð°Ð½Ð¸Ð¹" xml:space="preserve">
     <value>Add to wish list</value>
   </data>
-  <data name="Äîáàâèòü ê ñðàâíåíèþ" xml:space="preserve">
+  <data name="Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ðº ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸ÑŽ" xml:space="preserve">
     <value>Add to compare</value>
   </data>
-  <data name="Òîâàðû èç êàòàëîãà" xml:space="preserve">
+  <data name="Ð¢Ð¾Ð²Ð°Ñ€Ñ‹ Ð¸Ð· ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð°" xml:space="preserve">
     <value>Catalog products</value>
   </data>
 </root>

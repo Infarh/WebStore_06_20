@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -11,25 +12,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Âîçðàñò" xml:space="preserve">
+  <data name="Ð’Ð¾Ð·Ñ€Ð°ÑÑ‚" xml:space="preserve">
     <value>Age</value>
   </data>
-  <data name="Èìÿ" xml:space="preserve">
+  <data name="Ð˜Ð¼Ñ" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="Íà ãëàâíóþ" xml:space="preserve">
+  <data name="ÐÐ° Ð³Ð»Ð°Ð²Ð½ÑƒÑŽ" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="Íà÷àëî ðàáîòû" xml:space="preserve">
+  <data name="ÐÐ°Ñ‡Ð°Ð»Ð¾ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹" xml:space="preserve">
     <value>Employement</value>
   </data>
-  <data name="Îò÷åñòâî" xml:space="preserve">
+  <data name="ÐžÑ‚Ñ‡ÐµÑÑ‚Ð²Ð¾" xml:space="preserve">
     <value>Patronymic</value>
   </data>
-  <data name="Ôàìèëèÿ" xml:space="preserve">
+  <data name="Ð¤Ð°Ð¼Ð¸Ð»Ð¸Ñ" xml:space="preserve">
     <value>Surname</value>
   </data>
-  <data name="Íîâûé ñîòðóäíèê" xml:space="preserve">
+  <data name="ÐÐ¾Ð²Ñ‹Ð¹ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸Ðº" xml:space="preserve">
     <value>New employee</value>
   </data>
 </root>
