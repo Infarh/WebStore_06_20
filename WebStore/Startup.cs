@@ -75,6 +75,7 @@ namespace WebStore
             //services.AddScoped<IProductData, InMemoryProductData>();
             services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<ICartService, CookiesCartService>();
+            services.AddScoped<IOrderService, SqlOrderService>();
 
             //services.AddTransient<TInterface, TService>();
             //services.AddScoped<TInterface, TService>();
@@ -116,6 +117,11 @@ namespace WebStore
                 {
                     await context.Response.WriteAsync(_Configuration["CustomGreetings"]);
                 });
+
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}" // http://localhost:5000/admin/home/index
+                );
 
                 endpoints.MapControllerRoute(
                     name: "default",
