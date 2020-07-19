@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +26,13 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services
+               .AddDataProtection()
+               .SetApplicationName("WebStore")
+               .PersistKeysToFileSystem(new DirectoryInfo(typeof(Startup).Assembly.Location))
+               .SetDefaultKeyLifetime(TimeSpan.FromDays(14));
+
             services.AddDbContext<WebStoreDB>(opt => 
                 opt.UseSqlServer(_Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<WebStoreDBInitializer>();
