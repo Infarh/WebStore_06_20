@@ -66,22 +66,14 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            services.AddControllersWithViews(opt =>
-            {
-                //opt.Filters.Add<Filter>();
-                //opt.Conventions.Add(); // ƒобавление/изменение соглашений MVC-приложени€
-            }).AddRazorRuntimeCompilation();
+            services
+               .AddControllersWithViews()
+               .AddRazorRuntimeCompilation();
 
-            //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();
             services.AddScoped<IEmployeesData, SqlEmployeesData>();
-            //services.AddScoped<IProductData, InMemoryProductData>();
             services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<ICartService, CookiesCartService>();
             services.AddScoped<IOrderService, SqlOrderService>();
-
-            //services.AddTransient<TInterface, TService>();
-            //services.AddScoped<TInterface, TService>();
-            //services.AddSingleton<TInterface, TService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
