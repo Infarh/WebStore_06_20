@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.Domain;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.ServiceHosting.Controllers
 {
     //[Route("api/[controller]")] // http://localhost:5001/api/EmployeesApi
-    [Route("api/employees")]      // http://localhost:5001/api/employees - наш выбор
+    //[Route("api/employees")]      // http://localhost:5001/api/employees - наш выбор
+    [Route(WebAPI.Employees)]      // http://localhost:5001/api/employees - наш выбор
     [Produces("application/json")]
     [ApiController]
     public class EmployeesApiController : ControllerBase, IEmployeesData
