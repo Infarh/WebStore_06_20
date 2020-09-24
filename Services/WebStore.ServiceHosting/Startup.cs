@@ -1,24 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
-using WebStore.Interfaces.Services;
 using WebStore.Services.Data;
 using WebStore.Services.Products;
-using WebStore.Services.Products.InCookies;
-using WebStore.Services.Products.InSQL;
 
 namespace WebStore.ServiceHosting
 {
@@ -57,21 +51,34 @@ namespace WebStore.ServiceHosting
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
             });
 
-            //services.AddScoped<IEmployeesData, SqlEmployeesData>();
-            //services.AddScoped<IProductData, SqlProductData>();
-            //services.AddScoped<IOrderService, SqlOrderService>();
-            //services.AddScoped<ICartService, CookiesCartService>();
-
             services.AddWebStoreServices();
 
             // Сервис нужен для работы корзины...
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo { Title = "WebStore.API", Version = "v1" });
+
+                const string web_domain_xml = "WebStore.Domain.xml";
+                const string web_api_xml = "WebStore.ServiceHosting.xml";
+                const string debug_path = "bin/debug/netcoreapp3.1";
+
+                opt.IncludeXmlComments(web_api_xml);
+
+                if(File.Exists(web_domain_xml))
+                    opt.IncludeXmlComments(web_domain_xml);
+                else if(File.Exists(Path.Combine(debug_path, web_domain_xml)))
+                    opt.IncludeXmlComments(Path.Combine(debug_path, web_domain_xml));
+            });
+
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
         {
+            db.Initialize();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -80,6 +87,13 @@ namespace WebStore.ServiceHosting
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(opt =>
+            {
+                opt.SwaggerEndpoint("/swagger/v1/swagger.json", "WebStore.API");
+                opt.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints =>
             {
