@@ -6,6 +6,7 @@ using WebStore.Interfaces.Services;
 
 namespace WebStore.ServiceHosting.Controllers
 {
+    /// <summary>API управления сотрудниками</summary>
     //[Route("api/[controller]")] // http://localhost:5001/api/EmployeesApi
     //[Route("api/employees")]      // http://localhost:5001/api/employees - наш выбор
     [Route(WebAPI.Employees)]      // http://localhost:5001/api/employees - наш выбор
@@ -17,13 +18,23 @@ namespace WebStore.ServiceHosting.Controllers
 
         public EmployeesApiController(IEmployeesData EmployeesData) => _EmployeesData = EmployeesData;
 
+        /// <summary>
+        /// Получить всех доступных сотрудников
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]        // GET http://localhost:5001/api/employees
         //[HttpGet("all")] // GET http://localhost:5001/api/employees/all
         public IEnumerable<Employee> Get() => _EmployeesData.Get();
 
+        /// <summary>Найти сотрудника по идентификатору</summary>
+        /// <param name="id">Идентификатор искомого сотрудника</param>
+        /// <returns>Найденный сотрудник</returns>
         [HttpGet("{id}")]        // GET http://localhost:5001/api/employees/5
         public Employee GetById(int id) => _EmployeesData.GetById(id);
 
+        /// <summary>Добавление нового сотрудника</summary>
+        /// <param name="employee">Новый сотрудник</param>
+        /// <returns>Идентификатор добавленного сотрудника</returns>
         [HttpPost]
         public int Add(Employee employee)
         {
@@ -32,6 +43,9 @@ namespace WebStore.ServiceHosting.Controllers
             return id;
         }
 
+        /// <summary>
+        /// Редактирование
+        /// </summary>
         [HttpPut]
         public void Edit(Employee employee)
         {
@@ -39,6 +53,9 @@ namespace WebStore.ServiceHosting.Controllers
             SaveChanges();
         }
 
+        /// <summary>Удаление</summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")] // DELETE http://localhost:5001/api/employees/5
         //[HttpDelete("delete/{id}")]    // DELETE http://localhost:5001/api/employees/delete/5
         //[HttpDelete("delete({id})")]    // DELETE http://localhost:5001/api/employees/delete(5)
