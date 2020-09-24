@@ -1,7 +1,5 @@
 using System;
-using System.IO;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Clients.Employees;
+using WebStore.Clients.Identity;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Products;
 using WebStore.Clients.Values;
@@ -19,7 +18,6 @@ using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestApi;
 using WebStore.Services.Data;
 using WebStore.Services.Products.InCookies;
-using WebStore.Services.Products.InSQL;
 
 namespace WebStore
 {
@@ -36,8 +34,23 @@ namespace WebStore
             services.AddTransient<WebStoreDBInitializer>();
 
             services.AddIdentity<User, Role>(opt => {  })
-               .AddEntityFrameworkStores<WebStoreDB>()
+               //.AddEntityFrameworkStores<WebStoreDB>()
                .AddDefaultTokenProviders();
+
+            #region WebAPI Identity clients stores
+
+            services
+               .AddTransient<IUserStore<User>, UsersClient>()
+               .AddTransient<IUserPasswordStore<User>, UsersClient>()
+               .AddTransient<IUserEmailStore<User>, UsersClient>()
+               .AddTransient<IUserPhoneNumberStore<User>, UsersClient>()
+               .AddTransient<IUserTwoFactorStore<User>, UsersClient>()
+               .AddTransient<IUserClaimStore<User>, UsersClient>()
+               .AddTransient<IUserLoginStore<User>, UsersClient>();
+            services
+               .AddTransient<IRoleStore<Role>, RolesClient>(); 
+
+            #endregion
 
             services.Configure<IdentityOptions>(opt =>
             {
