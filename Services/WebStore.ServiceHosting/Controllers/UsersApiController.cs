@@ -36,20 +36,22 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<string> GetUserNameAsync([FromBody] User user) => await _UserStore.GetUserNameAsync(user);
 
         [HttpPost("UserName/{name}")] // api/users/UserName/TestUser
-        public async Task SetUserNameAsync([FromBody] User user, string name)
+        public async Task<string> SetUserNameAsync([FromBody] User user, string name)
         {
             await _UserStore.SetUserNameAsync(user, name);
             await _UserStore.UpdateAsync(user);
+            return user.UserName;
         }
 
         [HttpPost("NormalUserName")]
         public async Task<string> GetNormalizedUserNameAsync([FromBody] User user) => await _UserStore.GetNormalizedUserNameAsync(user);
 
         [HttpPost("NormalUserName/{name}")]
-        public async Task SetNormalizedUserNameAsync([FromBody] User user, string name)
+        public async Task<string> SetNormalizedUserNameAsync([FromBody] User user, string name)
         {
             await _UserStore.SetNormalizedUserNameAsync(user, name);
             await _UserStore.UpdateAsync(user);
+            return user.NormalizedUserName;
         }
 
         [HttpPost("User")] // api/users/user
@@ -157,10 +159,11 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<bool> GetTwoFactorEnabledAsync([FromBody] User user) => await _UserStore.GetTwoFactorEnabledAsync(user);
 
         [HttpPost("SetTwoFactor/{enable}")]
-        public async Task SetTwoFactorEnabledAsync([FromBody] User user, bool enable)
+        public async Task<bool> SetTwoFactorEnabledAsync([FromBody] User user, bool enable)
         {
             await _UserStore.SetTwoFactorEnabledAsync(user, enable);
             await _UserStore.UpdateAsync(user);
+            return user.TwoFactorEnabled;
         }
 
         #endregion
@@ -171,20 +174,22 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<string> GetEmailAsync([FromBody] User user) => await _UserStore.GetEmailAsync(user);
 
         [HttpPost("SetEmail/{email}")]
-        public async Task SetEmailAsync([FromBody] User user, string email)
+        public async Task<string> SetEmailAsync([FromBody] User user, string email)
         {
             await _UserStore.SetEmailAsync(user, email);
             await _UserStore.UpdateAsync(user);
+            return user.Email;
         }
 
         [HttpPost("GetEmailConfirmed")]
         public async Task<bool> GetEmailConfirmedAsync([FromBody] User user) => await _UserStore.GetEmailConfirmedAsync(user);
 
         [HttpPost("SetEmailConfirmed/{enable}")]
-        public async Task SetEmailConfirmedAsync([FromBody] User user, bool enable)
+        public async Task<bool> SetEmailConfirmedAsync([FromBody] User user, bool enable)
         {
             await _UserStore.SetEmailConfirmedAsync(user, enable);
             await _UserStore.UpdateAsync(user);
+            return user.EmailConfirmed;
         }
 
         [HttpGet("UserFindByEmail/{email}")]
@@ -194,20 +199,22 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<string> GetNormalizedEmailAsync([FromBody] User user) => await _UserStore.GetNormalizedEmailAsync(user);
 
         [HttpPost("SetNormalizedEmail/{email?}")]
-        public async Task SetNormalizedEmailAsync([FromBody] User user, string email)
+        public async Task<string> SetNormalizedEmailAsync([FromBody] User user, string email)
         {
             await _UserStore.SetNormalizedEmailAsync(user, email);
             await _UserStore.UpdateAsync(user);
+            return user.NormalizedEmail;
         }
 
         [HttpPost("GetPhoneNumber")]
         public async Task<string> GetPhoneNumberAsync([FromBody] User user) => await _UserStore.GetPhoneNumberAsync(user);
 
         [HttpPost("SetPhoneNumber/{phone}")]
-        public async Task SetPhoneNumberAsync([FromBody] User user, string phone)
+        public async Task<string> SetPhoneNumberAsync([FromBody] User user, string phone)
         {
             await _UserStore.SetPhoneNumberAsync(user, phone);
             await _UserStore.UpdateAsync(user);
+            return user.PhoneNumber;
         }
 
         [HttpPost("GetPhoneNumberConfirmed")]
@@ -215,10 +222,11 @@ namespace WebStore.ServiceHosting.Controllers
             await _UserStore.GetPhoneNumberConfirmedAsync(user);
 
         [HttpPost("SetPhoneNumberConfirmed/{confirmed}")]
-        public async Task SetPhoneNumberConfirmedAsync([FromBody] User user, bool confirmed)
+        public async Task<bool> SetPhoneNumberConfirmedAsync([FromBody] User user, bool confirmed)
         {
             await _UserStore.SetPhoneNumberConfirmedAsync(user, confirmed);
             await _UserStore.UpdateAsync(user);
+            return user.PhoneNumberConfirmed;
         }
 
         #endregion
@@ -249,10 +257,11 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<DateTimeOffset?> GetLockoutEndDateAsync([FromBody] User user) => await _UserStore.GetLockoutEndDateAsync(user);
 
         [HttpPost("SetLockoutEndDate")]
-        public async Task SetLockoutEndDateAsync([FromBody] SetLockoutDTO LockoutInfo)
+        public async Task<DateTimeOffset?> SetLockoutEndDateAsync([FromBody] SetLockoutDTO LockoutInfo)
         {
             await _UserStore.SetLockoutEndDateAsync(LockoutInfo.User, LockoutInfo.LockoutEnd);
             await _UserStore.UpdateAsync(LockoutInfo.User);
+            return LockoutInfo.User.LockoutEnd;
         }
 
         [HttpPost("IncrementAccessFailedCount")]
@@ -264,10 +273,11 @@ namespace WebStore.ServiceHosting.Controllers
         }
 
         [HttpPost("ResetAccessFailedCount")]
-        public async Task ResetAccessFailedCountAsync([FromBody] User user)
+        public async Task<int> ResetAccessFailedCountAsync([FromBody] User user)
         {
             await _UserStore.ResetAccessFailedCountAsync(user);
             await _UserStore.UpdateAsync(user);
+            return user.AccessFailedCount;
         }
 
         [HttpPost("GetAccessFailedCount")]
@@ -277,10 +287,11 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<bool> GetLockoutEnabledAsync([FromBody] User user) => await _UserStore.GetLockoutEnabledAsync(user);
 
         [HttpPost("SetLockoutEnabled/{enable}")]
-        public async Task SetLockoutEnabledAsync([FromBody] User user, bool enable)
+        public async Task<bool> SetLockoutEnabledAsync([FromBody] User user, bool enable)
         {
             await _UserStore.SetLockoutEnabledAsync(user, enable);
             await _UserStore.UpdateAsync(user);
+            return user.LockoutEnabled;
         }
 
         #endregion

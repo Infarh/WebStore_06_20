@@ -51,20 +51,22 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<string> GetRoleNameAsync([FromBody] Role role) => await _RoleStore.GetRoleNameAsync(role);
 
         [HttpPost("SetRoleName/{name}")]
-        public async Task SetRoleNameAsync(Role role, string name)
+        public async Task<string> SetRoleNameAsync(Role role, string name)
         {
             await _RoleStore.SetRoleNameAsync(role, name);
             await _RoleStore.UpdateAsync(role);
+            return role.Name;
         }
 
         [HttpPost("GetNormalizedRoleName")]
         public async Task<string> GetNormalizedRoleNameAsync(Role role) => await _RoleStore.GetNormalizedRoleNameAsync(role);
 
         [HttpPost("SetNormalizedRoleName/{name}")]
-        public async Task SetNormalizedRoleNameAsync(Role role, string name)
+        public async Task<string> SetNormalizedRoleNameAsync(Role role, string name)
         {
             await _RoleStore.SetNormalizedRoleNameAsync(role, name);
             await _RoleStore.UpdateAsync(role);
+            return role.NormalizedName;
         }
 
         [HttpGet("FindById/{id}")]

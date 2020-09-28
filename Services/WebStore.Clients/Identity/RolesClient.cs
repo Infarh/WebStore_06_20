@@ -50,8 +50,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetRoleNameAsync(Role role, string name, CancellationToken cancel)
         {
-            role.Name = name;
-            await PostAsync($"{_ServiceAddress}/SetRoleName/{name}", role, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/SetRoleName/{name}", role, cancel);
+            role.Name = await response.Content.ReadAsAsync<string>(cancel);
         }
 
         public async Task<string> GetNormalizedRoleNameAsync(Role role, CancellationToken cancel) =>
@@ -61,8 +61,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetNormalizedRoleNameAsync(Role role, string name, CancellationToken cancel)
         {
-            role.NormalizedName = name;
-            await PostAsync($"{_ServiceAddress}/SetNormalizedRoleName/{name}", role, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/SetNormalizedRoleName/{name}", role, cancel);
+            role.NormalizedName = await response.Content.ReadAsAsync<string>(cancel);
         }
 
         public async Task<Role> FindByIdAsync(string id, CancellationToken cancel) =>

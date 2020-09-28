@@ -38,8 +38,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetUserNameAsync(User user, string name, CancellationToken cancel)
         {
-            user.UserName = name;
-            await PostAsync($"{_ServiceAddress}/UserName/{name}", user, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/UserName/{name}", user, cancel);
+            user.UserName = await response.Content.ReadAsAsync<string>(cancel);
         }
 
         public async Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancel)
@@ -52,8 +52,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetNormalizedUserNameAsync(User user, string name, CancellationToken cancel)
         {
-            user.NormalizedUserName = name;
-            await PostAsync($"{_ServiceAddress}/NormalUserName/{name}", user, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/NormalUserName/{name}", user, cancel);
+            user.NormalizedUserName = await response.Content.ReadAsAsync<string>(cancel);
         }
 
         public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancel)
@@ -134,10 +134,10 @@ namespace WebStore.Clients.Identity
 
         public async Task SetPasswordHashAsync(User user, string hash, CancellationToken cancel)
         {
-            user.PasswordHash = hash;
-            await PostAsync(
+            var response = await PostAsync(
                 $"{_ServiceAddress}/SetPasswordHash", new PasswordHashDTO { User = user, Hash = hash },
                 cancel);
+            user.PasswordHash = await response.Content.ReadAsAsync<string>(cancel);
         }
 
         public async Task<string> GetPasswordHashAsync(User user, CancellationToken cancel)
@@ -160,8 +160,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetEmailAsync(User user, string email, CancellationToken cancel)
         {
-            user.Email = email;
-            await PostAsync($"{_ServiceAddress}/SetEmail/{email}", user, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/SetEmail/{email}", user, cancel);
+            user.Email = await response.Content.ReadAsAsync<string>(cancel);
         }
 
         public async Task<string> GetEmailAsync(User user, CancellationToken cancel)
@@ -180,8 +180,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetEmailConfirmedAsync(User user, bool confirmed, CancellationToken cancel)
         {
-            user.EmailConfirmed = confirmed;
-            await PostAsync($"{_ServiceAddress}/SetEmailConfirmed/{confirmed}", user, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/SetEmailConfirmed/{confirmed}", user, cancel);
+            user.EmailConfirmed = await response.Content.ReadAsAsync<bool>(cancel);
         }
 
         public async Task<User> FindByEmailAsync(string email, CancellationToken cancel)
@@ -208,8 +208,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetPhoneNumberAsync(User user, string phone, CancellationToken cancel)
         {
-            user.PhoneNumber = phone;
-            await PostAsync($"{_ServiceAddress}/SetPhoneNumber/{phone}", user, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/SetPhoneNumber/{phone}", user, cancel);
+            user.PhoneNumber = await response.Content.ReadAsAsync<string>(cancel);
         }
 
         public async Task<string> GetPhoneNumberAsync(User user, CancellationToken cancel)
@@ -228,8 +228,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetPhoneNumberConfirmedAsync(User user, bool confirmed, CancellationToken cancel)
         {
-            user.PhoneNumberConfirmed = confirmed;
-            await PostAsync($"{_ServiceAddress}/SetPhoneNumberConfirmed/{confirmed}", user, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/SetPhoneNumberConfirmed/{confirmed}", user, cancel);
+            user.PhoneNumberConfirmed = await response.Content.ReadAsAsync<bool>(cancel);
         }
 
         #endregion
@@ -271,11 +271,11 @@ namespace WebStore.Clients.Identity
 
         public async Task SetLockoutEndDateAsync(User user, DateTimeOffset? EndDate, CancellationToken cancel)
         {
-            user.LockoutEnd = EndDate;
-            await PostAsync(
+            var response = await PostAsync(
                 $"{_ServiceAddress}/SetLockoutEndDate",
                 new SetLockoutDTO { User = user, LockoutEnd = EndDate },
                 cancel);
+            user.LockoutEnd = await response.Content.ReadAsAsync<DateTimeOffset?>(cancel);
         }
 
         public async Task<int> IncrementAccessFailedCountAsync(User user, CancellationToken cancel)
@@ -306,8 +306,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetLockoutEnabledAsync(User user, bool enabled, CancellationToken cancel)
         {
-            user.LockoutEnabled = enabled;
-            await PostAsync($"{_ServiceAddress}/SetLockoutEnabled/{enabled}", user, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/SetLockoutEnabled/{enabled}", user, cancel);
+            user.LockoutEnabled = await response.Content.ReadAsAsync<bool>(cancel);
         }
 
         #endregion
@@ -316,8 +316,8 @@ namespace WebStore.Clients.Identity
 
         public async Task SetTwoFactorEnabledAsync(User user, bool enabled, CancellationToken cancel)
         {
-            user.TwoFactorEnabled = enabled;
-            await PostAsync($"{_ServiceAddress}/SetTwoFactor/{enabled}", user, cancel);
+            var response = await PostAsync($"{_ServiceAddress}/SetTwoFactor/{enabled}", user, cancel);
+            user.TwoFactorEnabled = await response.Content.ReadAsAsync<bool>(cancel);
         }
 
         public async Task<bool> GetTwoFactorEnabledAsync(User user, CancellationToken cancel)
