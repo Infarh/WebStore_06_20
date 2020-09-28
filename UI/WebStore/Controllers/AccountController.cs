@@ -31,37 +31,40 @@ namespace WebStore.Controllers
         {
             if (!ModelState.IsValid) return View(Model);
 
-            _Logger.LogInformation("Начало процесса регистрации нового пользователя {0}", Model.UserName);
-
-            var user = new User
+            using (_Logger.BeginScope("Регистрация пользователя {0}", Model.UserName))
             {
-                UserName = Model.UserName
-            };
+                _Logger.LogInformation("Начало процесса регистрации нового пользователя {0}", Model.UserName);
 
-            var registration_result = await _UserManager.CreateAsync(user, Model.Password);
-            if (registration_result.Succeeded)
-            {
-                _Logger.LogInformation("Пользователь {0} успешно зарегистрирован", user.UserName);
+                var user = new User
+                {
+                    UserName = Model.UserName
+                };
 
-                await _UserManager.AddToRoleAsync(user, Role.User);
+                var registration_result = await _UserManager.CreateAsync(user, Model.Password);
+                if (registration_result.Succeeded)
+                {
+                    _Logger.LogInformation("Пользователь {0} успешно зарегистрирован", user.UserName);
 
-                _Logger.LogInformation("Пользователь {0} наделён ролью {1}", user.UserName, Role.User);
+                    await _UserManager.AddToRoleAsync(user, Role.User);
 
-                await _SignInManager.SignInAsync(user, false);
+                    _Logger.LogInformation("Пользователь {0} наделён ролью {1}", user.UserName, Role.User);
 
-                _Logger.LogInformation("Пользователь {0} автоматически вошёл в систему после регистрации", user.UserName);
+                    await _SignInManager.SignInAsync(user, false);
 
-                return RedirectToAction("Index", "Home");
+                    _Logger.LogInformation("Пользователь {0} автоматически вошёл в систему после регистрации", user.UserName);
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                _Logger.LogWarning("Ошибка при регистрации нового пользователя {0}\r\n",
+                    Model.UserName,
+                    string.Join(Environment.NewLine, registration_result.Errors.Select(error => error.Description)));
+
+                //_Logger.Log(LogLevel.Information, new EventId(5), registration_result, null, (result, _) => string.Join(Environment.NewLine, result.Errors.Select(error => error.Description)));
+
+                foreach (var error in registration_result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
             }
-
-            _Logger.LogWarning("Ошибка при регистрации нового пользователя {0}\r\n",
-                Model.UserName,
-                string.Join(Environment.NewLine, registration_result.Errors.Select(error => error.Description)));
-
-            //_Logger.Log(LogLevel.Information, new EventId(5), registration_result, null, (result, _) => string.Join(Environment.NewLine, result.Errors.Select(error => error.Description)));
-
-            foreach (var error in registration_result.Errors)
-                ModelState.AddModelError(string.Empty, error.Description);
 
             return View(Model);
         }
