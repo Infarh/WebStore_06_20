@@ -30,6 +30,8 @@ namespace WebStore.Clients.Base
 
         protected async Task<T> GetAsync<T>(string url, CancellationToken Cancel = default)
         {
+            //var response0 = await _Client.SendAsync(new HttpRequestMessage(HttpMethod.Options, url));
+
             var response = await _Client.GetAsync(url, Cancel);
             return await response
                .EnsureSuccessStatusCode() // Убеждаемся, что в ответ получен 200-ый статусный код.

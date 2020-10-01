@@ -2,7 +2,6 @@
 using System.Linq;
 using WebStore.Domain;
 using WebStore.Domain.DTO.Products;
-using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Data;
 using WebStore.Services.Mapping;
