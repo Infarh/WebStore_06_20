@@ -24,7 +24,7 @@ namespace WebStore.Services.Products
             var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
 
             if (item is null)
-                cart.Items.Add(new CartItem {ProductId = id, Quantity = 1});
+                cart.Items.Add(new CartItem { ProductId = id, Quantity = 1 });
             else
                 item.Quantity++;
 
