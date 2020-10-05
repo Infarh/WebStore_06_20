@@ -23,31 +23,17 @@ namespace WebStore.Logger
 
         public IDisposable BeginScope<TState>(TState State) => null;
 
-        public bool IsEnabled(LogLevel Level)
+        public bool IsEnabled(LogLevel Level) => Level switch
         {
-            switch (Level)
-            {
-                default: throw new ArgumentOutOfRangeException(nameof(Level), Level, null);
-                case LogLevel.None: 
-                    return false;
-
-                case LogLevel.Trace: 
-                case LogLevel.Debug:
-                    return _Log.IsDebugEnabled;
-
-                case LogLevel.Information:
-                    return _Log.IsInfoEnabled;
-
-                case LogLevel.Warning:
-                    return _Log.IsWarnEnabled;
-
-                case LogLevel.Error:
-                    return _Log.IsErrorEnabled;
-
-                case LogLevel.Critical:
-                    return _Log.IsFatalEnabled;
-            }
-        }
+            LogLevel.None => false,
+            LogLevel.Trace => _Log.IsDebugEnabled,
+            LogLevel.Debug => _Log.IsDebugEnabled,
+            LogLevel.Information => _Log.IsInfoEnabled,
+            LogLevel.Warning => _Log.IsWarnEnabled,
+            LogLevel.Error => _Log.IsErrorEnabled,
+            LogLevel.Critical => _Log.IsFatalEnabled,
+            _ => throw new ArgumentOutOfRangeException(nameof(Level), Level, null),
+        };
 
         public void Log<TState>(
             LogLevel Level, EventId Id,
