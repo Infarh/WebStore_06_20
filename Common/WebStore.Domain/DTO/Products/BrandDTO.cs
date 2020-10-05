@@ -9,5 +9,7 @@ namespace WebStore.Domain.DTO.Products
         public string Name { get; set; }
 
         public int Order { get; set; }
+
+        public int ProductsCount { get; set; }
     }
 }
