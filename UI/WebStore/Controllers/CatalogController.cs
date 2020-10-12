@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WebStore.Domain;
@@ -12,6 +13,7 @@ namespace WebStore.Controllers
     {
         private readonly IProductData _ProductData;
         private readonly IConfiguration _Configuration;
+        private const string __PageSize = "PageSize";
 
         public CatalogController(IProductData ProductData, IConfiguration Configuration)
         {
@@ -21,7 +23,7 @@ namespace WebStore.Controllers
 
         public IActionResult Shop(int? BrandId, int? SectionId, int Page = 1)
         {
-            var page_size = int.TryParse(_Configuration["PageSize"], out var size)
+            var page_size = int.TryParse(_Configuration[__PageSize], out var size)
                 ? size
                 : (int?) null;
 
@@ -58,5 +60,25 @@ namespace WebStore.Controllers
 
             return View(product.FromDTO().ToView());
         }
+
+        #region API
+
+        public IActionResult GetCatalogHtml(int? BrandId, int? SectionId, int Page) => 
+            PartialView("Partial/_FeaturesItems", GetProducts(BrandId, SectionId, Page));
+
+        private IEnumerable<ProductViewModel> GetProducts(int? BrandId, int? SectionId, in int Page) =>
+            _ProductData.GetProducts(
+                    new ProductFilter
+                    {
+                        SectionId = SectionId,
+                        BrandId = BrandId,
+                        Page = Page,
+                        PageSize = int.Parse(_Configuration[__PageSize])
+                    }).Products
+               .FromDTO()
+               .ToView()
+               .OrderBy(p => p.Order);
+
+        #endregion
     }
 }
